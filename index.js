@@ -23,6 +23,9 @@ server.get('/jogos', (req, res) => {
 // Criar um novo jogo
 server.post('/jogos', (req, res) => {
     const {nome} = req.body;
+    if(!nome) {
+        return res.status(400).json({message: "Nome do jogo é obrigatório"});
+    }
     jogos.push(nome);
     return res.json(jogos);
 });
@@ -33,6 +36,8 @@ server.put('/jogos/:index', (req, res) => {
     const {nome} = req.body;
     if(index >= jogos.length) {
         return res.status(400).json({message: "Jogo não encontrado"});}
+    if(!nome) {
+        return res.status(400).json({message: "Nome do jogo é obrigatório"});}
     jogos[index] = nome;
 
     return res.json(jogos);
