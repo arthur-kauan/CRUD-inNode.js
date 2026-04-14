@@ -9,6 +9,9 @@ const jogos = ['Minecraft', 'Silksong', 'Super Mario Wonder']
 // Retorna um jogo por index
 server.get('/jogos/:index', (req, res) => {
     const {index} = req.params;
+    if(index >= jogos.length) {
+        return res.status(400).json({message: "Jogo não encontrado"});
+    }
     return res.json(jogos[index]);
 });
 
@@ -28,6 +31,8 @@ server.post('/jogos', (req, res) => {
 server.put('/jogos/:index', (req, res) => {
     const {index} = req.params;
     const {nome} = req.body;
+    if(index >= jogos.length) {
+        return res.status(400).json({message: "Jogo não encontrado"});}
     jogos[index] = nome;
 
     return res.json(jogos);
@@ -36,10 +41,12 @@ server.put('/jogos/:index', (req, res) => {
 // Deleter um jogo
 server.delete('/jogos/:index', (req, res) => {
     const {index} = req.params;
+    if(index >= jogos.length) {
+        return res.status(400).json({message: "Jogo não encontrado"});
+    }
     jogos.splice(index, 1);
     return res.json({message: "O jogo foi deletado"});
 });
-
 
 
 
